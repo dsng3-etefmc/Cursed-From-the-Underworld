@@ -1,4 +1,5 @@
-# jogo
+# jogo: The Redemption of the Bastard
 
 ## Description
-jogo legal
+Neste repositorio estamos criando um jogo, na esocla ETE-FMC no curso de Desenvolvimento de Sistamas.
+
