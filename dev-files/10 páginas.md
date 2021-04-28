@@ -1,197 +1,343 @@
-**TÍTULO**
+**The Redemption of the Bastard**
 
-**Ilustração**
+<img src="media/image1.jpg" style="width:4.24844in;height:2.3125in" />
 
-**Número da equipe, nomes, número, turma**
+**Número da equipe:** DSNG3
 
-**Plataforma**
+**turma:** 35DS - MT
 
-**Gênero**
+**Integrantes:**
 
-**Público-alvo**
+| Nomes                              | Nº  |
+|------------------------------------|-----|
+| Antonio Alexandre Barbosa da Silva | 4   |
+| Danilo Ribeiro Gaspar              | 10  |
+| Gabriel Feliciano Pontes Morais    | 15  |
+| Giovana Franciele Gonçalves Leite  | 17  |
+| Marcus Vinicius Ferreira Oliveira  | 29  |
+| Nydia Jodar Teles Dos Santos       | 31  |
 
-**Classificação**
+**Plataforma:** Aventura – ação
 
-**Data**
+**Gênero:** Aventura de ação
+
+**Público-alvo:** jogadores/gamers
+
+**Classificação:** 14 anos
+
+**Data:** 03/05/2021
 
 **Sinopse**
 
--   Incluir começo, meio e fim (ou suspense), citando personagens,
-    ambientes e conflitos).
-
-*Exemplo: O fazendeiro José tem uma fazenda. Cansados de serem
-explorados, os animais dessa fazenda se juntam para se rebelar. O
-fazendeiro luta contra vacas assassinas, ovelhas sinistras e galinhas
-furiosas que ameaçam destruir suas plantações. À medida que a batalha
-cresce, novas armas e aliados são adicionados ao jogo. O fazendeiro
-poderá defender sua propriedade? Quem ganhará a guerra da fazenda?
-\[\...\]*
+Um explorador toca em um objeto amaldiçoado que liga sua alma a um
+demônio, porém ele quer se libertar, mas como a força de um demônio é
+muito grande o explorador vai percebendo uma força interior, e também
+percebe que demônios estão o caçando. Sendo assim resolve procurar um
+monge que o ajuda, porém para se libertar ele precisa lutar contra Dark,
+um demônio devastadora e impiedoso
 
 **Gameplay**
 
--   Gamificação da sinopse, fases e evolução.
-
-*Exemplo: O jogador é o fazendeiro que defende sua fazenda de vacas,
-ovelhas e galinhas. O jogo tem cinco fases, cada uma com tempo
-limitados. O jogador usa sua colheita para comprar os itens de defesa.
-Ele administra o dinheiro comprando novas armas e fazendo novas
-plantações para garantir o abastecimento futuro. Cada rodada dura de 15
-a 30 minutos, tendo 5 fases. Ao todo serão com 6 mapas de ambiente, 6
-condições climáticas, 6 rodadas de inimigos -- proporcionando até 10
-horas de gameplay. \[\...\]\
-*
+O jogador é um explorador que encontrou uma tumba e tocou em um objeto
+amaldiçoado. O jogo tem quatro fases, com tempo infinito para
+completá-las. O jogador usa seus poderes para sobreviver e assim passar
+de fase, que conseguirá assim que as fases vão surgindo. Para
+completar/zerar o jogo você terá que derrotar o demônio Dark que fica na
+última fase.
 
 **Fluxo de jogo**
 
--   Como funcionam os sistemas de pontos, dinheiro, coletáveis, etc;
-
--   O que o jogador ganha - habilidades, armas, movimentos,
-    destraváveis, etc;
-
--   Como isso se amarra à história e aos objetivos de cada fase.
-
-*Exemplo: O jogador pode escolher gastar seu dinheiro em suprimentos
-para fazer novas plantações ou para comprar novas tecnologias de defesa.
-Com isso, ele evolui tanto visualmente quanto em funcionalidade -- desde
-veículos e utensílios de fazenda usados como arma, até equipamentos
-similares a armaduras e equipamentos de proteção. Cada avanço oferece
-vantagens e desvantagens: uma armadura é mais resistente, mas impede
-alguns movimentos \[\...\]*
+O jogador ganhará poderes e habilidades como senciente, telepatia e
+magia , ao decorrer das fases, que se for usado correto oferecerá
+vantagens e serão essenciais para a continuidade do jogo e para derrotar
+os inimigos que surgirão.
 
 **Controle**
 
-O que faz cada botão/tecla (incluir desenho)
+<img src="media/image2.png" style="width:4.18879in;height:3.4215in" />
 
-**Personagem(ns)**
+Para controlar o personagem usaremos o W, A, S, D :
 
--   Apenas player characters
+W: Andar para cima
 
-*Nome*
+A: Andar para o lado esquerdo
 
-*Espécie*
+S: Andar para baixo
 
-*Idade*
+D: Andar para o lado direito
 
-*Gênero*
+mouse para “mirar” a onde o personagem vai atacar.
 
-*Etnia*
+Sensitiva(2°fase): Ficará ativada assim que o demônio possuir o corpo do
+protagonista
 
-*Profissão*
+Telepatia(3°fase): C
 
-*Histórico*
+Trocar entre espadas e poderes(4°fase ) : Z
 
-*Diferencial*
+Atacar com poderes/espadas(4°fase ): “barra de espaço”
 
-*Habilidades*
+**Personagem(Protagonista)**
 
--   É possível customizar a personagem?
+*Nome: Oliver*
 
--   E trocar de personagem?
+*Espécie: Humano*
 
--   Caso sim, qual a diferença entre elas?
+*Idade: 20 anos*
+
+*Gênero: Masculino*
+
+*Etnia: cristão*
+
+*Profissão: arqueólogo*
+
+*Histórico: gosta de explorar lugares estranhos e obscuros*
+
+*Diferencial: não tem*
+
+*Habilidades: “instinto” explorador*
+
+-   É possível customizar a personagem? Não
+
+-   E trocar de personagem? Não
+
+**Personagem(Anti-herói)**
+
+*Nome: Addond*
+
+*Espécie: Demônio*
+
+*Idade: 1000 anos*
+
+*Gênero: sem gênero*
+
+*Etnia:* Renove (adorador de Renove, um grande conde do inferno)
+
+*Profissão:* incorporação (incorpora o corpo das pessoas)
+
+*Histórico:* O demônio Addond tem uma grande fama de incorporar pessoas
+pessoas fracas que as levam à loucura fazendo coisas indesejáveis.
+
+*Diferencial: não tem*
+
+*Habilidades: incorporação*
+
+-   É possível customizar a personagem? Não
+
+-   E trocar de personagem? não
 
 **Conceitos do gameplay**
 
--   Explicação das rodadas/arcos:
+-   Explicação das fases:
 
-*Exemplo: Uma rodada corresponde a cinco fases:*
+1.  1.  Explore a tumba: Ande pela tumba procurando por tesouros e uma
+        > arma.
 
-*1) Comprar: indo à loja da cidade, pode-se comprar sementes,
-equipamentos de fazenda, fertilizantes, sistemas de defesa, até armas e
-itens especiais.*
+    2.  Passe pelo anjo protetor: O anjo tentará impedir sua trajetória
+        > e o jogador deverá lutar contra ele.
 
-*2) Plantar:*
+    3.  Pegue/encoste no objeto mágico: encoste no objeto mágico para
+        > ser possuído.
 
-*3) Defender*
+2.  1.  Explore: explore o mundo a caminho da vila
 
-*4) Inimigo*
+    2.  Sobreviva: ao anoitecer os demônios começam a te caçar
 
-*5) Vender*
+3.  1.  Encontre o monge: encontre monge para que ele posso te ajudar
 
-*\[\...\]*
+    2.  Poderes: descubra a existência do demônio em seu corpo
+
+    3.  Esconda-se: esconda-se dos demônios que estão te caçando e use a
+        > telepatia para conversar com o demônio.
+
+4.  1.  Castelos em ruínas: encontre os castelos em ruínas
+
+    2.  Invocar: invoque o Dark
+
+    3.  Lute: Lute contra Dark
 
 -   Como vencer:
 
-*Exemplo: sobreviver e derrotar animais e inimigos*
+Combata com Dark e vença-o.
 
 -   Como perder:
 
-*Exemplo: morrendo, tendo a fazenda devastada ou falindo.*
+morrendo, seja pelos desafios de cada fase ou pelos demônios
 
 **Mundo**
 
--   Descrição do mundo em geral
+-   Descrição do mundo em geral: O mundo será em um tema medieval, como
+    > castelos, vilas, tumbas e etc.
 
--   Lista dos ambientes (descrição, função na história)
+-   Lista dos ambientes:
 
--   Como eles se conectam
+1.  A primeira fase se encontra em uma tumba e florestas, onde o
+    > personagem foi explorar e acabou encontrando o objeto amaldiçoado
+    > e quando acordou teve que fugir dos demônios que estavam em sua
+    > caça.
 
--   Mapa
+2.  A segunda fase se encontra em uma vila onde o personagem tem que
+    > encontrar o monge para que ele possa ajudá-lo.
+
+3.  A terceira fase se encontra em uma gruta, pois o personagem precisa
+    > de um lugar calmo para poder fazer a telepatia com o demônio que o
+    > possuiu
+
+4.  A quarta fase se encontra em um lugar com castelos em ruínas onde o
+    > personagem irá batalhar com Dark.
+
+-   Como eles se conectam: eles se conectam de acordo com suas
+    > necessidades no jogo com um caminho linear e com base na história.
+
+> **Mapa**
+
+<img src="media/image3.jpg" style="width:4.44792in;height:4.58017in" />
 
 **Interface**
 
 -   Como o jogo se parece?
 
-*Ponto de vista, tipo de gráfico, métrica (tamanho do jogador em relação
-ao cenário, diferença de velocidades e movimentos)*
+O jogo vai ter um gráfico 2d com uma visão top-down (câmera de cima para
+baixo). O mapa vai ser dividido em quadrados. O tamanho do jogador em
+relação ao cenário é realismo.
+
+O jogador andará em uma velocidade (1x) e quando correr vai ser em uma
+velocidade (1.5x).
 
 -   Qual o clima e o tipo de música de cada fase?
 
+1.  O clima da primeira fase será um pouco tenso já que terá que lutar e
+    > fugir de demônio e com uma música de suspense
+
+2.  O clima da segunda fase será calma e com músicas calmas
+
+3.  O clima da terceira fase irá variar de acordo com o desenrolamento
+    > do jogo, no começa será calmo porém quando for fazer a telepatia
+    > com o demônio terá um clima tenso, com músicas que tambem varias
+    > de calmas para agitadas/suspenses.
+
+4.  O clima da quarta fase será de grande tensão e de vingança devido a
+    > traição do demônio, e também com uma música dramática e frenética.
+
 -   HUD (incluir desenho do diagrama):
 
-*Saúde, vidas, dinheiro, placar, força, combustível, munição,
-inventário, habilidades, tempo, navegador, informações do contexto,
-mira, velocidade, etc\...*
+Inventário, minimapa, status dos efeitos, vida, mana
 
-**Requisitos de hardware\
-**
+<img src="media/image4.png" style="width:5.90551in;height:3.31944in" />
+
+**Requisitos de hardware**
+
+Computador básico: 2GB de RAM, processador de 2ª geração para cima,
+placa de vídeo tranquila e 5Gb de disco livre.
 
 **Mecânica**
 
--   Tipos
+Tipo: Andar;
 
-*escalares, penduráveis, deslizantes, explosivos, quebráveis, pêndulos,
-prisão, teleportal, veículos, passagens, arcas, luzes, empurráveis,
-interruptores, alavancas, manivelas, alvos\...*
+-   Como elas são usadas no ambiente: Explorar o mundo.
 
--   Como elas são usadas no ambiente
+-   Como elas se relacionam com as habilidades:
 
--   Como elas se relacionam com as habilidades
+Tipo: Andar para frente; Andar para trás; Atacar com a espada/poderes;
+
+-   Como elas são usadas no ambiente: Batalhas.
+
+-   Como elas se relacionam com as habilidades: Andar para frente e
+    > atacar com a espada/poderes, e para desviar do contra golpe do
+    > adversário é preciso que ele ande para trás.
+
+Tipo: Pegar um objeto;
+
+-   Como elas são usadas no ambiente:Pegar armas e itens.
+
+-   Como elas se relacionam com as habilidades:O personagem pega um item
+    > que pode dar acesso a uma gama de habilidades.
+
+Tipo: Telepatia;
+
+-   Como elas são usadas no ambiente: Conversar.
+
+-   Como elas se relacionam com as habilidades: O personagem vai
+    > conversar por telepatia com o demônio que está o possuindo.
+
+Tipo: Invocar;
+
+-   Como elas são usadas no ambiente: Trazer o demônio.
+
+-   Como elas se relacionam com as habilidades: O jogador vai invocar o
+    > demônio em sua forma física, ele também lutará ao lado do jogador.
+
+Tipo: Correr;
+
+-   Como elas são usadas no ambiente: Fugir.
+
+-   Como elas se relacionam com as habilidades: O personagem vai fugir
+    > dos demônios que estão o perseguindo.
 
 **Power-ups**
 
--   Tipos
+-   Tipos: instinto, senciente, telepatia e magia
 
--   Benefícios
+-   Benefícios: em cada fase ele ganhara um dos poderes , que são
+    > essenciais para que possa seguir em frente
 
--   Finalidades
+-   Finalidades: o instinto explorador ajudará na exploração da tumba. O
+    > senciente ajudará o jogador a sobreviver dos demônios que estão o
+    > caçando pois ele irá sentir o demônio por perto. A telepatia
+    > ajudará ele entrar em contato/conversar com Addond para que assim
+    > descubra um jeito de separar os dois. A Magia ajudará ele com a
+    > batalha com Dark .
 
-**Inimigos**
+**Inimigos(Boss)**
 
-Nome
+Nome: Dark
 
-Espécie
+Espécie: Demônio
 
-Idade
+Idade: Indefinido
 
-Gênero
+Gênero: Masculino.
 
-Etnia
+Etnia: Renove (Adorador de Renove, um grande conde do inferno)
 
-Profissão
+Profissão: Canibalismo.
 
-Histórico
+Histórico: Um demônio devastadora, impetuoso que quer eliminar a todo
+custo o protagonista
 
-Diferencial
+Diferencial: não tem
 
-Habilidades
+Habilidades: lançar magias
 
--   Cenas de corte (como são e finalidade)
+**Inimigos(anjo)**
 
--   NPCs
+Nome: Gabriel
 
--   Destraváveis e bônus (fazer o jogador jogar novamente)
+Espécie: Anjo
 
--   Licenças
+Idade: indefinido
 
--   Concorrentes
+Gênero: Masculino
+
+Etnia: indefinido
+
+Profissão: Cidadão
+
+Histórico: O anjo gabriel é enviado para proteger objetos amaldiçoados
+deixados para trás
+
+Diferencial: não tem
+
+Habilidades: Poderes angelicais
+
+-   Cenas de corte: Lutas de espadas e poderes, para isso acontecer elas
+    > tem que chegar no objetivo final e tem como finalidade se libertar
+    > do *Addond*
+
+-   NPCs: monje
+
+-   Destraváveis e bônus: não tem
+
+-   Licenças: não tem
+
+-   Concorrentes: Stardew valley (Combate), Diablo
