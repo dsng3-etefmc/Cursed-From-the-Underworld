@@ -1,11 +1,7 @@
-// Types
-import { Brick } from './sprites/Brick';
-import { Paddle } from './sprites/Paddle';
-import { Ball } from './sprites/Ball';
 import { CanvasView } from './view/CanvasView';
 
 export class Collision {
-  isCollidingBrick(ball: Ball, brick: Brick): boolean {
+  isCollidingBrick(ball, brick) {
     if (
       ball.pos.x < brick.pos.x + brick.width &&
       ball.pos.x + ball.width > brick.pos.x &&
@@ -18,7 +14,7 @@ export class Collision {
   }
 
   // Check ball collision with bricks
-  isCollidingBricks(ball: Ball, bricks: Brick[]): boolean {
+  isCollidingBricks(ball, bricks) {
     let colliding = false;
 
     bricks.forEach((brick, i) => {
@@ -36,7 +32,7 @@ export class Collision {
     return colliding;
   }
 
-  checkBallCollision(ball: Ball, paddle: Paddle, view: CanvasView): void {
+  checkBallCollision(ball, paddle, view) {
     // 1. Check ball collision with paddle
     if (
       ball.pos.x + ball.width > paddle.pos.x &&
