@@ -1,7 +1,4 @@
-// Types
-import { Brick } from '../sprites/Brick';
-import { Paddle } from '../sprites/Paddle';
-import { Ball } from '../sprites/Ball';
+import { Dimension } from '../types/Dimension';
 
 export class CanvasView {
 
@@ -11,6 +8,10 @@ export class CanvasView {
         this.scoreDisplay = document.querySelector('#score');
         this.start = document.querySelector('#start');
         this.info = document.querySelector('#info');
+    }
+
+    getDimensions () {
+        return new Dimension(this.canvas.width, this.canvas.height)
     }
 
     clear() {
