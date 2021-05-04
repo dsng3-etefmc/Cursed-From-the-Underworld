@@ -3,10 +3,14 @@ import { Collision } from './Collison';
 // Images
 
 
+// import images
+import images from './images/*.*';
+
 // Level and colors
 
 // Helpers
-import { createBricks } from './helpers';
+import { Camera } from './Camera.js';
+import { MapGenerator } from './map/Map.js';
 
 let gameOver = false;
 let score = 0;
@@ -23,20 +27,33 @@ function setGameWin(view) {
 
 function gameLoop(
 	view,
-	collision
+	collision,
+	camera,
+	map
 ) {
 	view.clear();
+	map.draw();
+	// camera.draw();
 	// view.drawBricks(bricks);
 	// view.drawSprite(paddle);
 	// view.drawSprite(ball);
 
-	requestAnimationFrame(() => gameLoop(view, collision));
+	requestAnimationFrame(() => gameLoop(view, collision, camera, map));
 }
 
-function startGame(view, collision) {
-	
+function startGame(view) {
+	console.log("Game started");
 
-	gameLoop(view, collision);
+	const viewDimensions = view.getDimensions();
+
+	const collision = new Collision();
+
+	const camera = new Camera(view.context, viewDimensions);
+
+	const mapGenerator = new MapGenerator(view.context, viewDimensions);
+	mapGenerator.setMap(images.background);
+
+	gameLoop(view, collision, camera, mapGenerator);
 }
 
 // Create a new view
