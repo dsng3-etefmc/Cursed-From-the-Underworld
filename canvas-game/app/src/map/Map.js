@@ -40,6 +40,14 @@ export class MapGenerator {
         this.image.src = ctx.canvas.toDataURL("image/png");
     }
 
+    setMap (image) {
+        const map = new Image();
+        map.src = image;
+
+        console.log(map)
+        this.image = map;
+    }
+
     // draw the map adjusted to camera
     draw (context, xView, yView) {
         // easiest way: draw the entire map changing only the destination coordinate in canvas
