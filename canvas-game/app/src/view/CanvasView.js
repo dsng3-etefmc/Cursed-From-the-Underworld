@@ -1,4 +1,4 @@
-import { Dimension } from '../types/Dimension';
+import { Dimension } from '../types/Dimension.js';
 
 export class CanvasView {
 

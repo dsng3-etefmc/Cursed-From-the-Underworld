@@ -1,4 +1,4 @@
-import { CanvasView } from './view/CanvasView';
+import { CanvasView } from './view/CanvasView.js';
 
 export class Collision {
   isCollidingBrick(ball, brick) {

@@ -61,16 +61,21 @@ export class MapGenerator {
         const sy = yView ?? 0;
 
         // dimensions of cropped image			
-        const sWidth = this.canvasContext.canvas.width;
-        const sHeight = this.canvasContext.canvas.height;
+        const sWidth = (this.image.width - sx < this.canvasContext.canvas.width)
+        ? this.image.width - sx 
+        : this.canvasContext.canvas.width;
+
+        const sHeight = (this.image.height - sy < this.canvasContext.canvas.height) 
+        ? this.image.height - sy
+        : this.canvasContext.canvas.height;
 
         // if cropped image is smaller than canvas we need to change the source dimensions
-        if (this.image.width - sx < sWidth) {
-            sWidth = this.image.width - sx;
-        }
-        if (this.image.height - sy < sHeight) {
-            sHeight = this.image.height - sy;
-        }
+        // if (this.image.width - sx < sWidth) {
+        //     sWidth = this.image.width - sx;
+        // }
+        // if (this.image.height - sy < sHeight) {
+        //     sHeight = this.image.height - sy;
+        // }
 
         // location on canvas to draw the croped image
         const dx = 0;
