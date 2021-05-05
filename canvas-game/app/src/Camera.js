@@ -1,5 +1,4 @@
-import { isJSDocThisTag } from 'typescript';
-import { Vector } from './types/Vector';
+import { Vector } from './types/Vector.js';
 
 export class Camera {
     constructor(contextCanvas, dimensions) {

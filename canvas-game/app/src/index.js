@@ -1,12 +1,14 @@
 import { CanvasView } from './view/CanvasView.js';
-import { Collision } from './Collison';
+import { Collision } from './Collison.js';
 // Images
+
+const getImage = (name) => `/app/src/images/${name}`;
 
 // Level and colors
 
 // Helpers
 import { Camera } from './Camera.js';
-import { MapGenerator } from './map/Map_gen.js';
+import { MapGenerator } from './map/Map.js';
 
 let gameOver = false;
 let score = 0;
@@ -47,6 +49,7 @@ function startGame(view) {
 	const camera = new Camera(view.context, viewDimensions);
 
 	const mapGenerator = new MapGenerator(view.context, viewDimensions);
+	// mapGenerator.setMap(getImage('background'));
 	mapGenerator.generate();
 
 	gameLoop(view, collision, camera, mapGenerator);

@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "parcel serve app/index.html",
+        "start": "node ./bin/www",
         "watch": "parcel watch app/index.html"
     },
     "author": "",
@@ -23,6 +23,9 @@
     },
     "dependencies": {
         "@types/redux": "^3.6.0",
+        "cookie-parser": "^1.4.5",
+        "express": "^4.17.1",
+        "morgan": "^1.10.0",
         "redux": "^4.1.0"
     }
 }
