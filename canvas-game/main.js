@@ -13,18 +13,20 @@ window.addEventListener('keydown', function(event){
     tecla = event.key
 })
 
-function movimento (x, y, dx, dy){
+class movimento {
 
-    this.x=x;
-    this.y=y;
-    this.dx=dx;
-    this.dy=dy;
+    constructor (x, y, dx, dy) {
+        this.x=x;
+        this.y=y;
+        this.dx=dx;
+        this.dy=dy;
+    }
 
-        this.draw = function(){
-            c.drawImage(passo1, this.x, this.y);
-        }
+    draw () {
+        c.drawImage(passo1, this.x, this.y);
+    }
 
-        this.update = function(){
+    update () {
 
         if((tecla == 'w') || (tecla == 'W')){
                 this.y = this.y - this.dy;
@@ -50,7 +52,6 @@ function movimento (x, y, dx, dy){
             tecla = '';
         }
             
-        
         this.draw();
     }
 }
@@ -64,4 +65,4 @@ function animate (){
     player1.update();
 }
 
- animate();
+animate();
