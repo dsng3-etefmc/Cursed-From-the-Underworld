@@ -31,25 +31,25 @@ class Player {
 
         if((tecla == 'w') || (tecla == 'W')){
                 this.y = this.y - this.dy;
-                som.play()
+               // som.play()
             tecla = '';
         }
 
         if((tecla == 'd') || (tecla == 'D')){
             this.x = this.x + this.dx;
-            som.play()
+           // som.play()
             tecla = '';
         }
 
         if((tecla == 'a') || (tecla == 'A')){
             this.x = this.x - this.dx;
-            som.play()
+           // som.play()
             tecla = '';
         }
 
         if((tecla == 's') || (tecla == 'S')){
             this.y = this.y + this.dy;
-            som.play()
+           // som.play()
             tecla = '';
         }
             
