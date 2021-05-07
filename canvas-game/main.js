@@ -1,30 +1,33 @@
-var canvas = document.querySelector('canvas')
+const canvas = document.querySelector('canvas')
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-var c = canvas.getContext('2d')
+const ctx = canvas.getContext('2d')
 
-var passo1 = document.getElementById("passo1");
-var passo2 = document.getElementById("passo2");
-var som = document.getElementById("som");
+const passo1 = document.getElementById("passo1");
+const passo2 = document.getElementById("passo2");
+const som = document.getElementById("som");
 
-window.addEventListener('keydown', function(event){
-    tecla = event.key
-})
+/**
+ * Classe do jogador
+ */
+class Player {
 
-function movimento (x, y, dx, dy){
+    constructor (x, y, dx, dy) {
+        this.x=x;
+        this.y=y;
+        this.dx=dx;
+        this.dy=dy;
 
-    this.x=x;
-    this.y=y;
-    this.dx=dx;
-    this.dy=dy;
+        window.addEventListener('keydown', (event) => this.update(event.key))
+    }
 
-        this.draw = function(){
-            c.drawImage(passo1, this.x, this.y);
-        }
+    draw () {
+        ctx.drawImage(passo1, this.x, this.y);
+    }
 
-        this.update = function(){
+    update (tecla) {
 
         if((tecla == 'w') || (tecla == 'W')){
                 this.y = this.y - this.dy;
@@ -50,18 +53,24 @@ function movimento (x, y, dx, dy){
             tecla = '';
         }
             
-        
         this.draw();
     }
 }
 
-var player1 = new movimento(100, 200, 10,10);
+
+// Lógica principal ----------------------------------------
+
+const player1 = new Player(100, 200, 10,10);
+
+function init () {
+    animate();
+}
 
 function animate (){
     requestAnimationFrame(animate);
-    c.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
     player1.update();
 }
 
- animate();
+init();
