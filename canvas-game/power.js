@@ -1,76 +1,85 @@
-(function(){
+class Power {
 	//document.querySelector('body').style.cursor = 'crosshair';
 	
-	var game = new Phaser.Game(800,600,Phaser.CANVAS,'',{preload:preload,create:create,update:update});
+	constructor () {
+		this.game = new Phaser.Game(800,600,Phaser.CANVAS,'',{preload:preload,create:create,update:update});
+
+		//Variáveis Globais
+		this.tank;
+		this.controls = {};
+		this.cannon;
+		this.bullets;
+		this.fireRate = 100;
+		this.nextFire = 0;
+	}
+
 	
-	//Variáveis Globais
-	var tank,controls = {},cannon,bullets,fireRate = 100,nextFire = 0;
 	
-	function preload(){
+	preload () {
 		//game.load.image('tank','img/tank.png');
 		//game.load.image('cannon','img/cannon.png');
-		game.load.image('bullet','img/bullet.png');
+		this.game.load.image('bullet','img/bullet.png');
 	}
 	
-	function create(){
+	create () {
 		//game.physics.startSystem(Phaser.Physics.ARCADE);
-		game.stage.backgroundColor = '#C78839';
+		this.game.stage.backgroundColor = '#C78839';
 		
-		tank = game.add.sprite(game.world.centerX,game.world.centerY,'tank');
+		this.tank = game.add.sprite(game.world.centerX,game.world.centerY,'tank');
 		//tank.anchor.set(.5);
-		game.physics.enable(tank);
+		this.game.physics.enable(tank);
 		
-		bullets = game.add.group();
-		bullets.enableBody = true;
-		bullets.createMultiple(9999,'bullet'); // tiro
+		this.ullets = game.add.group();
+		this.bullets.enableBody = true;
+		this.bullets.createMultiple(9999,'bullet'); // tiro
 		//bullets.setAll('checkWorldBounds',true);
 		//bullets.setAll('outOfBoundsKill',true);
 		//bullets.setAll('anchor.x',.5);
 		//bullets.setAll('anchor.y',.5);
 		
-		cannon = game.add.sprite(tank.x,tank.y,'cannon');
+		this.cannon = game.add.sprite(tank.x,tank.y,'cannon');
 		//cannon.anchor.set(.3,.5);
 		//game.physics.enable(cannon);
 		
 		
-		controls.up = game.input.keyboard.addKey(Phaser.Keyboard.W);
-		controls.left = game.input.keyboard.addKey(Phaser.Keyboard.A);
-		controls.down = game.input.keyboard.addKey(Phaser.Keyboard.S);
-		controls.right = game.input.keyboard.addKey(Phaser.Keyboard.D);
+		this.controls.up = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
+		this.controls.left = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
+		this.controls.down = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
+		this.controls.right = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
 	}
 	
-	function update(){
-		cannon.x = tank.x;
-		cannon.y = tank.y;
-		cannon.rotation = game.physics.arcade.angleToPointer(cannon);
+	update () {
+		this.cannon.x = this.tank.x;
+		this.cannon.y = this.tank.y;
+		this.cannon.rotation = game.physics.arcade.angleToPointer(cannon);
 	
-		if(controls.up.isDown){
+		if(this.controls.up.isDown){
 			//Aplica uma velocidade nos eixos X e Y do sprite dado o de inclinação deste
 			//Recebe como parâmetros: a inclinação em radianos, a velocidade a ser aplicada e o parâmetro a ser afetado
-			game.physics.arcade.velocityFromRotation(tank.rotation,100,tank.body.velocity);
+			this.game.physics.arcade.velocityFromRotation(tank.rotation,100,tank.body.velocity);
 		} else
-		if(controls.down.isDown){
-			game.physics.arcade.velocityFromRotation(tank.rotation,-50,tank.body.velocity);
+		if(this.controls.down.isDown){
+			this.game.physics.arcade.velocityFromRotation(tank.rotation,-50,tank.body.velocity);
 		} else {
-			tank.body.velocity.set(0);
+			this.tank.body.velocity.set(0);
 		}
 		
-		if(controls.left.isDown){
+		if(this.controls.left.isDown){
 			if(controls.down.isDown){
-				tank.body.rotation++;
+				this.tank.body.rotation++;
 			} else {
-				tank.body.rotation--;
+				this.tank.body.rotation--;
 			}
 		} else
-		if(controls.right.isDown){
+		if(this.controls.right.isDown){
 			if(controls.down.isDown){
-				tank.body.rotation--;
+				this.tank.body.rotation--;
 			} else {
-				tank.body.rotation++;
+				this.tank.body.rotation++;
 			}
 		}
 		
-		if(game.input.activePointer.isDown){
+		if(this.game.input.activePointer.isDown){
 			fire();
 		}
 		
@@ -80,15 +89,17 @@
 		//game.world.wrap(cannon,75);
 	}
 	
-	function fire(){
-		if(game.time.now > nextFire && bullets.countDead() > 0){
-			var bullet = bullets.getFirstDead();
-				bullet.reset(cannon.x + Math.cos(cannon.rotation) * 80,cannon.y + Math.sin(cannon.rotation) * 80);
-				
-				game.physics.arcade.moveToPointer(bullet,300);
-				
-				nextFire = game.time.now + fireRate;
+	fire () {
+		if(this.game.time.now > nextFire && this.bullets.countDead() > 0){
+			var bullet = this.bullets.getFirstDead();
+			bullet.reset(
+				cannon.x + Math.cos(cannon.rotation) * 80,cannon.y + Math.sin(cannon.rotation) * 80
+			);
+			
+			this.game.physics.arcade.moveToPointer(bullet,300);
+			
+			nextFire = this.game.time.now + this.fireRate;
 		}
 	}
 	
-}());
+}
