@@ -45,7 +45,7 @@ const configuration = {
 
 		game.world.setBounds(0, 70, 1920, 1040);
 		
-		this.add.image(60, 250, 'demonio')
+		this.add.image(500, 500, 'demonio')
 
 		tank = game.add.sprite(game.world.centerX,game.world.centerY,'tank');
 		tank.anchor.set(.5);
