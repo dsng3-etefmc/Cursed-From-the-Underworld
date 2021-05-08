@@ -1,10 +1,10 @@
-// Configuração do jogo
+// Configurações do jogo
 const configuration = {
-	caracterSpeed: 5
+	caracterSpeed: 5 // Velocidade do jogador
 };
 
 /**
- * Objetos
+ * Objetos do jogo
  */
 
 class Player {
@@ -39,17 +39,18 @@ class Player {
 	}
 
 	update () {
+		// Atualiza os canhões
 		this.cannon.x = this.player.x;
 		this.cannon.y = this.player.y;
 		this.cannon.rotation = game.physics.arcade.angleToPointer(this.cannon);
 
+		// Movimenta o personagem se wasd for pressionado
 		if(controls.up.isDown){
 			this.player.y -= configuration.caracterSpeed;
 		} 
 		else if (controls.down.isDown) {
 			this.player.y += configuration.caracterSpeed;
 		}
-	
 		if (controls.left.isDown) {
 			this.player.x -= configuration.caracterSpeed;
 		}
@@ -57,6 +58,7 @@ class Player {
 			this.player.x += configuration.caracterSpeed;
 		}
 
+		// Gira o personagem com o cursor
 		if (game.physics.arcade.distanceToPointer(this.player) > 10) {
 			this.player.rotation = game.physics.arcade.angleToPointer(this.player);
 		}
@@ -95,8 +97,8 @@ document.querySelector('body').style.cursor = 'crosshair';
 
 // Variavel do framework reponsável por todo jogo
 var game = new Phaser.Game(
-	window.innerWidth,
-	window.innerHeight,
+	screen.width,
+	screen.height,
 	Phaser.CANVAS,
 	'',
 	{
@@ -107,12 +109,15 @@ var game = new Phaser.Game(
 	}
 );
 
-//Variáveis Globais
+/**
+ * Váriaveis globais
+ */
 let player, // Jogador
 	controls = {}, // Controles
 	fireRate = 100, // Velocidade de disparo
 	nextFire = 0; // ???
 
+// Pré carrega alguns recursos
 function preload() {
 	game.load.image('tank','res/img/teste2.png');
 	game.load.image('cannon','res/img/ivisivel.png');
@@ -121,14 +126,18 @@ function preload() {
 	game.load.image('background', 'res/img/2testando.png');
 }
 
-
 // Função que cria os elementos do jogo
 function create() {
+	// Inicia as fisicas do jogo - ???
 	game.physics.startSystem(Phaser.Physics.P2JS);
+
+	// Adiciona o cenário do jogo
 	this.add.image(0, 0, 'background');
 
+	// Limita o tamanho do mundo - adiona as barreiras
 	game.world.setBounds(0, 70, 1920, 1040);
 	
+	// Adiciona a imagem do demônio
 	this.add.image(60, 250, 'demonio');
 
 	// player
@@ -140,6 +149,7 @@ function create() {
 	controls.down = game.input.keyboard.addKey(Phaser.Keyboard.S);
 	controls.right = game.input.keyboard.addKey(Phaser.Keyboard.D);
 
+	// Faz a câmera seguir o jogador
 	game.camera.follow(player.player);
 }
 
@@ -148,7 +158,7 @@ function update() {
 	player.update();
 }
 
-// Função de debug
+// Função ??? - Debug
 function render() {
 	game.debug.cameraInfo(game.camera, 32, 32);
 	game.debug.spriteCoords(player.player, 32, 500);
