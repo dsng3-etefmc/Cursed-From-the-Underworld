@@ -6,11 +6,8 @@ const configuration = {
 /**
  * Objetos do jogo
  */
-
 class Player {
 	constructor () {
-		this.vida = 100;
-
 		// player setup
 		this.player = game.add.sprite(
 			game.world.centerX,
@@ -18,7 +15,17 @@ class Player {
 			'tank'
 		);
 		this.player.anchor.set(.5);
+		this.player.maxHealth = 100;
+		this.player.health = this.player.maxHealth;
 		game.physics.enable(this.player);
+
+		// HP bar - barra de vida
+		this.hpBar = new HealthBar(game, {
+			x: this.player.x, 
+			y: this.player.y - 100,
+			height: 20,
+			width: 100
+		});
 
 		// cannon setup
 		this.cannon = game.add.sprite(
@@ -38,7 +45,24 @@ class Player {
 		this.bullets.setAll('anchor.y',.5);
 	}
 
+	heal (val) {
+		this.player.heal(val);
+		this._updateHealthBar();
+	}
+
+	damage (val) {
+		this.player.damage(val);
+		this._updateHealthBar();
+	}
+
+	_updateHealthBar () {
+		this.hpBar.setPercent(100 * this.player.health / this.player.maxHealth)
+	}
+
 	update () {
+		// Atualiza Barra de vida
+		this.hpBar.setPosition(this.player.x, this.player.y - 100);
+
 		// Atualiza os canhões
 		this.cannon.x = this.player.x;
 		this.cannon.y = this.player.y;
@@ -89,6 +113,18 @@ class Player {
 	}
 }
 
+class Enemy {
+	constructor (hp) {
+		this.hp
+	}
+}
+
+class Demon extends Enemy {
+	constructor () {
+		super();
+	}
+}
+
 /**
  * Lógica do jogo
  */
@@ -97,8 +133,8 @@ document.querySelector('body').style.cursor = 'crosshair';
 
 // Variavel do framework reponsável por todo jogo
 var game = new Phaser.Game(
-	screen.width,
-	screen.height,
+	800,
+	600,
 	Phaser.CANVAS,
 	'',
 	{
@@ -138,7 +174,7 @@ function create() {
 	game.world.setBounds(0, 70, 1920, 1040);
 	
 	// Adiciona a imagem do demônio
-	this.add.image(500, 500, 'demonio');
+	this.add.image(60, 250, 'demonio');
 
 	// player
 	player = new Player();

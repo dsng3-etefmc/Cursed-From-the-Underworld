@@ -1,5 +1,12 @@
 body {
-    background: url("res/img/2testando.png");
+    background-color: darkgray;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-size: cover;
     background-attachment: fixed;
+
+    width: 100vw;
+    height: 100vh;
 }
