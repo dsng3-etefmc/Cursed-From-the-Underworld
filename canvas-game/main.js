@@ -6,7 +6,6 @@ const configuration = {
 /**
  * Objetos do jogo
  */
-
 class Player {
 	constructor () {
 		// player setup
