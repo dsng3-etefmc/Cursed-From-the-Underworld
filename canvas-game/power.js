@@ -1,19 +1,34 @@
 (function(){
 	document.querySelector('body').style.cursor = 'crosshair';
 	
-	var game = new Phaser.Game(window.innerWidth,window.innerHeight,Phaser.CANVAS,'',{preload:preload,create:create,update:update});
+	var game = new Phaser.Game(
+		window.innerWidth,
+		window.innerHeight,
+		Phaser.CANVAS,
+		'',
+		{
+			preload: preload,
+			create: create,
+			update: update
+		}
+	);
 	
 	//Variáveis Globais
-	var tank,controls = {},cannon,bullets,fireRate = 100,nextFire = 0;
+	let tank,
+		controls = {},
+		cannon,
+		bullets,
+		fireRate = 100,
+		nextFire = 0;
 	
-	function preload(){
+	function preload() {
 		game.load.image('tank','res/img/teste2.png');
 		game.load.image('cannon','res/img/ivisivel.png');
 		game.load.image('bullet','res/img/bullet.png');
 		this.load.image('background', 'res/img/2testando.png');
 	}
 	
-	function create(){
+	function create() {
 		game.physics.startSystem(Phaser.Physics.ARCADE);
 		this.add.image(0, 0, 'background')
 		
@@ -40,7 +55,7 @@
 		controls.right = game.input.keyboard.addKey(Phaser.Keyboard.D);
 	}
 	
-	function update(){
+	function update() {
 		cannon.x = tank.x;
 		cannon.y = tank.y;
 		cannon.rotation = game.physics.arcade.angleToPointer(cannon);
@@ -82,13 +97,13 @@
 	}
 	
 	function fire(){
-		if(game.time.now > nextFire && bullets.countDead() > 0){
-			var bullet = bullets.getFirstDead();
-				bullet.reset(cannon.x + Math.cos(cannon.rotation) * 80,cannon.y + Math.sin(cannon.rotation) * 80);
-				
-				game.physics.arcade.moveToPointer(bullet,300);
-				
-				nextFire = game.time.now + fireRate;
+		if (game.time.now > nextFire && bullets.countDead() > 0){
+			let bullet = bullets.getFirstDead();
+			bullet.reset(cannon.x + Math.cos(cannon.rotation) * 80,cannon.y + Math.sin(cannon.rotation) * 80);
+			
+			game.physics.arcade.moveToPointer(bullet,300);
+			
+			nextFire = game.time.now + fireRate;
 		}
 	}
 	
