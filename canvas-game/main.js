@@ -1,136 +1,165 @@
-// Configuração do jogo
+// Configurações do jogo
 const configuration = {
-	caracterSpeed: 5
+	caracterSpeed: 5 // Velocidade do jogador
 };
 
-// Lógica do jogo
-(function(){
-	document.querySelector('body').style.cursor = 'crosshair';
-	
-	// Variavel do framework reponsável por todo jogo
-	var game = new Phaser.Game(
-		window.innerWidth,
-		window.innerHeight,
-		Phaser.CANVAS,
-		'',
-		{
-			preload: preload,
-			create: create,
-			update: update,
-			render: render
-		}
-	);
-	
-	//Variáveis Globais
-	let tank, // Jogador
-		controls = {}, // Controles
-		cannon, // ???
-		bullets, // Tiros da arma
-		fireRate = 100, // Velocidade de disparo
-		nextFire = 0; // ???
-	
-	function preload() {
-		game.load.image('tank','res/img/teste2.png');
-		game.load.image('cannon','res/img/ivisivel.png');
-		game.load.image('bullet','res/img/bullet.png');
-		game.load.image('demonio','res/img/demonio.png');
-		this.load.image('background', 'res/img/2testando.png');
+/**
+ * Objetos do jogo
+ */
+
+class Player {
+	constructor () {
+		this.vida = 100;
+
+		// player setup
+		this.player = game.add.sprite(
+			game.world.centerX,
+			game.world.centerY, 
+			'tank'
+		);
+		this.player.anchor.set(.5);
+		game.physics.enable(this.player);
+
+		// cannon setup
+		this.cannon = game.add.sprite(
+			this.player.x,
+			this.player.y,
+			'cannon'
+		);
+		this.cannon.anchor.set(.3,.5);
+		game.physics.enable(this.cannon);
+		
+		this.bullets = game.add.group();
+		this.bullets.enableBody = true;
+		this.bullets.createMultiple(999,'bullet');
+		this.bullets.setAll('checkWorldBounds',true);
+		this.bullets.setAll('outOfBoundsKill',true);
+		this.bullets.setAll('anchor.x',.5);
+		this.bullets.setAll('anchor.y',.5);
 	}
-	
 
-	// Função que cria os elementos do jogo
-	function create() {
-		game.physics.startSystem(Phaser.Physics.P2JS);
-		this.add.image(0, 0, 'background');
+	update () {
+		// Atualiza os canhões
+		this.cannon.x = this.player.x;
+		this.cannon.y = this.player.y;
+		this.cannon.rotation = game.physics.arcade.angleToPointer(this.cannon);
 
-		game.world.setBounds(0, 70, 1920, 1040);
-		
-		this.add.image(500, 500, 'demonio')
-
-		tank = game.add.sprite(game.world.centerX,game.world.centerY,'tank');
-		tank.anchor.set(.5);
-		game.physics.enable(tank);
-		
-		bullets = game.add.group();
-		bullets.enableBody = true;
-		bullets.createMultiple(999,'bullet');
-		bullets.setAll('checkWorldBounds',true);
-		bullets.setAll('outOfBoundsKill',true);
-		bullets.setAll('anchor.x',.5);
-		bullets.setAll('anchor.y',.5);
-		
-		cannon = game.add.sprite(tank.x,tank.y,'cannon');
-		cannon.anchor.set(.3,.5);
-		game.physics.enable(cannon);
-		
-		// Controles
-		controls.up = game.input.keyboard.addKey(Phaser.Keyboard.W);
-		controls.left = game.input.keyboard.addKey(Phaser.Keyboard.A);
-		controls.down = game.input.keyboard.addKey(Phaser.Keyboard.S);
-		controls.right = game.input.keyboard.addKey(Phaser.Keyboard.D);
-
-		game.camera.follow(tank);
-		console.log(Phaser)
-		console.log(game)
-		console.log(controls)
-	}
-	
-	// Função que atualiza os elementos do jogo - rodada a cada frame
-	function update() {
-		cannon.x = tank.x;
-		cannon.y = tank.y;
-		cannon.rotation = game.physics.arcade.angleToPointer(cannon);
-
-		// Movimenta o personagem caso tecla X apertada
+		// Movimenta o personagem se wasd for pressionado
 		if(controls.up.isDown){
-			tank.y -= configuration.caracterSpeed;
+			this.player.y -= configuration.caracterSpeed;
 		} 
 		else if (controls.down.isDown) {
-			tank.y += configuration.caracterSpeed;
+			this.player.y += configuration.caracterSpeed;
 		}
-
 		if (controls.left.isDown) {
-			tank.x -= configuration.caracterSpeed;
+			this.player.x -= configuration.caracterSpeed;
 		}
 		else if (controls.right.isDown) {
-			tank.x += configuration.caracterSpeed;
+			this.player.x += configuration.caracterSpeed;
 		}
-		
-		if (game.physics.arcade.distanceToPointer(tank) > 10) {
-			tank.rotation = game.physics.arcade.angleToPointer(tank);
+
+		// Gira o personagem com o cursor
+		if (game.physics.arcade.distanceToPointer(this.player) > 10) {
+			this.player.rotation = game.physics.arcade.angleToPointer(this.player);
 		}
-		// if(controls.left.isDown) {
-		// 	tank.body.rotation += controls.down.isDown ? 1 : -1;
-		// } 
-		// else if(controls.right.isDown) {
-		// 	tank.body.rotation += controls.down.isDown ? -1 : 1;
-		// }
-		
+
+		// Atira se botão click ativado
 		if(game.input.activePointer.isDown){
-			fire();
+			this.fire();
 		}
-		
+
 		//permite a realocação de um sprite em relação ao mundo do jogo
 		//recebe como parâmetros: o sprite a ser realocado e uma margem em pixels 
-		game.world.wrap(tank,75);
-		game.world.wrap(cannon,75);
+		game.world.wrap(this.player, 75);
+		game.world.wrap(this.cannon, 75);
 	}
 
-	// Função de debug
-	function render() {
-		game.debug.cameraInfo(game.camera, 32, 32);
-    	game.debug.spriteCoords(tank, 32, 500);
-	}
-	
-	function fire(){
-		if (game.time.now > nextFire && bullets.countDead() > 0){
-			let bullet = bullets.getFirstDead();
-			bullet.reset(cannon.x + Math.cos(cannon.rotation) * 80,cannon.y + Math.sin(cannon.rotation) * 80);
+	fire () {
+		if (game.time.now > nextFire && this.bullets.countDead() > 0){
+			let bullet = this.bullets.getFirstDead();
+			bullet.reset(
+				this.cannon.x + Math.cos(this.cannon.rotation) * 80,
+				this.cannon.y + Math.sin(this.cannon.rotation) * 80
+			);
 			
-			game.physics.arcade.moveToPointer(bullet,1000);
+			game.physics.arcade.moveToPointer(bullet, 1000);
 			
 			nextFire = game.time.now + fireRate;
 		}
 	}
+}
+
+/**
+ * Lógica do jogo
+ */
+
+document.querySelector('body').style.cursor = 'crosshair';
+
+// Variavel do framework reponsável por todo jogo
+var game = new Phaser.Game(
+	screen.width,
+	screen.height,
+	Phaser.CANVAS,
+	'',
+	{
+		preload: preload,
+		create: create,
+		update: update,
+		render: render
+	}
+);
+
+/**
+ * Váriaveis globais
+ */
+let player, // Jogador
+	controls = {}, // Controles
+	fireRate = 100, // Velocidade de disparo
+	nextFire = 0; // ???
+
+// Pré carrega alguns recursos
+function preload() {
+	game.load.image('tank','res/img/teste2.png');
+	game.load.image('cannon','res/img/ivisivel.png');
+	game.load.image('bullet','res/img/bullet.png');
+	game.load.image('demonio','res/img/demonio.png');
+	game.load.image('background', 'res/img/2testando.png');
+}
+
+// Função que cria os elementos do jogo
+function create() {
+	// Inicia as fisicas do jogo - ???
+	game.physics.startSystem(Phaser.Physics.P2JS);
+
+	// Adiciona o cenário do jogo
+	this.add.image(0, 0, 'background');
+
+	// Limita o tamanho do mundo - adiona as barreiras
+	game.world.setBounds(0, 70, 1920, 1040);
 	
-}());
+	// Adiciona a imagem do demônio
+	this.add.image(500, 500, 'demonio');
+
+	// player
+	player = new Player();
+	
+	// Controles
+	controls.up = game.input.keyboard.addKey(Phaser.Keyboard.W);
+	controls.left = game.input.keyboard.addKey(Phaser.Keyboard.A);
+	controls.down = game.input.keyboard.addKey(Phaser.Keyboard.S);
+	controls.right = game.input.keyboard.addKey(Phaser.Keyboard.D);
+
+	// Faz a câmera seguir o jogador
+	game.camera.follow(player.player);
+}
+
+// Função que atualiza os elementos do jogo - rodada a cada frame
+function update() {
+	player.update();
+}
+
+// Função ??? - Debug
+function render() {
+	game.debug.cameraInfo(game.camera, 32, 32);
+	game.debug.spriteCoords(player.player, 32, 500);
+}
