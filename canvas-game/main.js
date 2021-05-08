@@ -29,6 +29,7 @@ const configuration = {
 		game.load.image('tank','res/img/teste2.png');
 		game.load.image('cannon','res/img/ivisivel.png');
 		game.load.image('bullet','res/img/bullet.png');
+		game.load.image('demonio','res/img/demonio.png');
 		this.load.image('background', 'res/img/2testando.png');
 	}
 	
@@ -36,6 +37,8 @@ const configuration = {
 		game.physics.startSystem(Phaser.Physics.ARCADE);
 		this.add.image(0, 0, 'background')
 		
+		this.add.image(60, 250, 'demonio')
+
 		tank = game.add.sprite(game.world.centerX,game.world.centerY,'tank');
 		tank.anchor.set(.5);
 		game.physics.enable(tank);
