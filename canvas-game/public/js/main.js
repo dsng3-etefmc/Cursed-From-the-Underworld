@@ -178,7 +178,7 @@ function create() {
 	game.world.setBounds(0, 70, 1920, 1040);
 	
 	// Adiciona a imagem do demônio
-	this.add.image(60, 250, 'demonio');
+	this.add.image(300,300, 'demonio');
 
 	// player
 	player = new Player();
