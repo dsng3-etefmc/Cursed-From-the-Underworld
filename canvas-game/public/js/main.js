@@ -1,3 +1,5 @@
+import { HealthBar } from './HealthBar.js';
+
 // Configurações do jogo
 const configuration = {
 	caracterSpeed: 5 // Velocidade do jogador
@@ -129,6 +131,8 @@ class Demon extends Enemy {
  * Lógica do jogo
  */
 
+const get_image = (name) => `public/img/${name}`;
+
 document.querySelector('body').style.cursor = 'crosshair';
 
 // Variavel do framework reponsável por todo jogo
@@ -155,11 +159,11 @@ let player, // Jogador
 
 // Pré carrega alguns recursos
 function preload() {
-	game.load.image('tank','res/img/teste2.png');
-	game.load.image('cannon','res/img/ivisivel.png');
-	game.load.image('bullet','res/img/bullet.png');
-	game.load.image('demonio','res/img/demonio.png');
-	game.load.image('background', 'res/img/2testando.png');
+	game.load.image('tank', get_image('teste2.png'));
+	game.load.image('cannon', get_image('ivisivel.png'));
+	game.load.image('bullet', get_image('bullet.png'));
+	game.load.image('demonio', get_image('demonio.png'));
+	game.load.image('background', get_image('2testando.png'));
 }
 
 // Função que cria os elementos do jogo
