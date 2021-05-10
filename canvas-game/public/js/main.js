@@ -48,7 +48,7 @@ class Player { //class pro jogador
 		game.physics.enable(this.cannon);
 		
 		//tiros
-		this.bullets = game.add.group();
+		this.bullets = game.add.physicsGroup();
 		this.bullets.enableBody = true;
 		this.bullets.createMultiple(999,'bullet');  //tanto de tiro que o personagem pode dar
 		this.bullets.setAll('checkWorldBounds',true);
@@ -142,7 +142,7 @@ class Player { //class pro jogador
 }
 //classe para o inimigo-------------
 class Enemy {
-	constructor (sprite) {
+	constructor (sprite, hitDelay = 1000) {
 		this.sprite = sprite
 		this.healthBar = new HealthBar(game, {
 			x: this.sprite.x, 
@@ -150,6 +150,16 @@ class Enemy {
 			height: 20,
 			width: 100
 		});
+
+		this.hitdelay = hitDelay;
+		this.nextHit = 0
+	}
+
+	hit (aObject) {
+		if (game.time.now > this.nextHit) {
+			this.nextHit = game.time.now + this.hitdelay;
+			aObject.damage(20);
+		}
 	}
 
 	damage (val) {
@@ -162,17 +172,37 @@ class Enemy {
 		this._updateHealthBar();
 	}
 
+	_moveHealthBar () {
+		this.healthBar.setPosition(this.sprite.x, this.sprite.y - 100);
+	}
+
 	_updateHealthBar () {
-		this.healthBar.setPercent(this.sprite.health / this.sprite.maxHealth);
+		this.healthBar.setPercent(100 * this.sprite.health / this.sprite.maxHealth);
 	}
 }
 //-------------
 class Demon extends Enemy {
 	constructor () {
-		const sprite = game.add.image(80, 250, 'demonio'); //adiciona o demonio
+		const sprite = game.add.sprite(150, 250, 'demon'); //adiciona o demonio
+		game.physics.enable(sprite);
+		sprite.anchor.set(.5);
+		sprite.scale.set(.5);
+
+		var walk = sprite.animations.add('walk', [0, 1, 2, 3]);
+		sprite.play('walk', 5, true);
+
 		sprite.maxHealth = 500;  // do demonio
 		sprite.health = sprite.maxHealth;  //hp maximo
+
 		super(sprite);
+	}
+
+	moveToPlayer (player) {
+		game.physics.arcade.moveToObject(this.sprite, player, 200);
+	}
+
+	update () {
+		this._moveHealthBar();
 	}
 }
 
@@ -214,35 +244,25 @@ function preload() {
 	game.load.image('bullet', get_image('bullet.png'));
 	game.load.image('demonio', get_image('demonio.png'));
 	game.load.image('background', get_image('2testando.png'));
+	game.load.spritesheet('demon', get_image('demon_spritesheet.png'), 180, 180, 36);
 	game.load.spritesheet('player', get_image('player.png'), 24, 32, 36);
 }
 
 // Função que cria os elementos do jogo
 function create() {
 	// Inicia as fisicas do jogo - ???
-	game.physics.startSystem(Phaser.Physics.P2JS);
+	game.physics.startSystem(Phaser.Physics.ARCADE);
 
 	// Adiciona o cenário do jogo
 	this.add.image(0, 0, 'background');   
 
 	// Limita o tamanho do mundo - adiona as barreiras
 	game.world.setBounds(0, 70, 1920, 1040); //barreira/limite
-	
-
-	// setTimeout(() => p.animations.stop(), 5000)
 
 	// player
 	player = new Player();  //variaveis de cada personagem
 	demon = new Demon(); //variaveis de cada personagem
 	console.log(player)
-
-	// demon.sprite.body.collides(
-	// 	player.bullets, 
-	// 	(body1, body2) => {
-	// 		demon.damage(10);
-	// 	}, 
-	// 	game
-	// );
 	
 	// Controles
 	controls.up = game.input.keyboard.addKey(Phaser.Keyboard.W);    //fazer o personagem mexer
@@ -252,15 +272,46 @@ function create() {
 
 	// Faz a câmera seguir o jogador
 	game.camera.follow(player.player);
+
+	console.log(demon.sprite) 
+	console.log(player.bullets)
+	console.log(game.physics.arcade.collide)
 }
 
 // Função que atualiza os elementos do jogo - rodada a cada frame
 function update() {
 	player.update();
+	demon.update();
+	demon.moveToPlayer(player.player);
+
+	let bulletAndDemonCollision = game.physics.arcade.collide(
+		demon.sprite, 
+		player.bullets, 
+		() => demon.damage(10)
+	);
+	
+	if (bulletAndDemonCollision) {
+        console.log('boom');
+    }
+
+	let playerAndDemonCollision = game.physics.arcade.overlap(
+		player.player, 
+		demon.sprite, 
+		() => console.log('boom'), 
+		null, 
+		this
+	);
+	
+	if (playerAndDemonCollision) {
+		demon.hit(player);
+	}
 }
 
 // Função ??? - Debug
 function render() {
-	game.debug.cameraInfo(game.camera, 32, 32);       //cordenadas
-	game.debug.spriteCoords(player.player, 32, 500);  //cordenadas do jogador
+	// game.debug.cameraInfo(game.camera, 32, 32);       //cordenadas
+	// game.debug.spriteCoords(player.player, 32, 500);  //cordenadas do jogador
+	game.debug.body(player.player);
+	game.debug.body(player.bullets);
+	game.debug.body(demon.sprite);
 }
