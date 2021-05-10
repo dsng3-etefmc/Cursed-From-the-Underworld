@@ -175,7 +175,7 @@ class Enemy {
 
 class Demon extends Enemy {
 	constructor () {
-		const sprite = game.add.image(80, 250, 'demonio');
+		const sprite = game.add.image(80, 250, 'demonio'); //adiciona o demonio
 		sprite.maxHealth = 500;
 		sprite.health = sprite.maxHealth;
 		super(sprite);
@@ -234,8 +234,6 @@ function create() {
 	// Limita o tamanho do mundo - adiona as barreiras
 	game.world.setBounds(0, 70, 1920, 1040);
 	
-	// Adiciona a imagem do demônio
-	this.add.image(300,300, 'demonio');
 
 	// setTimeout(() => p.animations.stop(), 5000)
 
