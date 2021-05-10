@@ -1,4 +1,4 @@
-import { HealthBar } from './HealthBar.js';
+import { HealthBar } from './HealthBar.js';  //chamando o HealthBar.js pelo JavaScript
 
 // Configurações do jogo
 const configuration = {
@@ -84,7 +84,7 @@ class Player { //class pro jogador
 
 		this.player.body.velocity.set(0);
 
-		// Movimenta o personagem se wasd for pressionado
+		// Movimenta o personagem se W-A-S-D for pressionado
 		let did_player_moved = false;
 		let which_animation = '';
 		if(controls.up.isDown){
@@ -123,7 +123,7 @@ class Player { //class pro jogador
 		//permite a realocação de um sprite em relação ao mundo do jogo
 		//recebe como parâmetros: o sprite a ser realocado e uma margem em pixels 
 		game.world.wrap(this.player, 75);      //realoca o personagem do outro lado do mapa
-		game.world.wrap(this.cannon, 75);
+		game.world.wrap(this.cannon, 75);      //realoca o personagem do outro lado do mapa
 	}
 
 	fire () { //o personagem atira
@@ -215,6 +215,7 @@ function preload() {
 	game.load.image('demonio', get_image('demonio.png'));
 	game.load.image('background', get_image('2testando.png'));
 	game.load.spritesheet('player', get_image('player.png'), 24, 32, 36);
+	game.load.audio('audio', 'public/music/BatalhaFinal.mp3');
 }
 
 // Função que cria os elementos do jogo
@@ -227,6 +228,8 @@ function create() {
 
 	// Limita o tamanho do mundo - adiona as barreiras
 	game.world.setBounds(0, 70, 1920, 1040); //barreira/limite
+
+	
 	
 
 	// setTimeout(() => p.animations.stop(), 5000)
