@@ -8,7 +8,7 @@ const configuration = {
 /**
  * Objetos do jogo
  */
-class Player {
+class Player { //class pro jogador
 	constructor () {
 		// player setup
 		this.player = game.add.sprite(
@@ -22,7 +22,7 @@ class Player {
 		game.physics.enable(this.player);
 
 		// Animation
-		const walkingAnimationsKeyframes = (s) => [0, 1, 2, 3, 4, 5, 6, 7].map(n => n + 9 * (s - 1))
+		const walkingAnimationsKeyframes = (s) => [0, 1, 2, 3, 4, 5, 6, 7].map(n => n + 9 * (s - 1)) //frames da animação
 		var walkUp = this.player.animations.add('walkUp', walkingAnimationsKeyframes(2));
 		var walkDown = this.player.animations.add('walkDown', walkingAnimationsKeyframes(1));
 		var walkLeft = this.player.animations.add('walkLeft', walkingAnimationsKeyframes(3));
@@ -47,20 +47,23 @@ class Player {
 		this.cannon.anchor.set(.3,.5);
 		game.physics.enable(this.cannon);
 		
+		//tiros
 		this.bullets = game.add.group();
 		this.bullets.enableBody = true;
-		this.bullets.createMultiple(999,'bullet');
+		this.bullets.createMultiple(999,'bullet');  //tanto de tiro que o personagem pode dar
 		this.bullets.setAll('checkWorldBounds',true);
 		this.bullets.setAll('outOfBoundsKill',true);
 		this.bullets.setAll('anchor.x',.5);
 		this.bullets.setAll('anchor.y',.5);
 	}
 
+	//cura a vida do personagem
 	heal (val) {
 		this.player.heal(val);
 		this._updateHealthBar();
 	}
 
+	//abaixa a vida do personagem (principal)
 	damage (val) {
 		this.player.damage(val);
 		this._updateHealthBar();
@@ -112,11 +115,6 @@ class Player {
 			this.player.animations.stop();
 		}
 
-		// Gira o personagem com o cursor
-		// if (game.physics.arcade.distanceToPointer(this.player) > 10) {
-		// 	this.player.rotation = game.physics.arcade.angleToPointer(this.player);
-		// }
-
 		// Atira se botão click ativado
 		if(game.input.activePointer.isDown){
 			this.fire();
@@ -124,15 +122,11 @@ class Player {
 
 		//permite a realocação de um sprite em relação ao mundo do jogo
 		//recebe como parâmetros: o sprite a ser realocado e uma margem em pixels 
-		game.world.wrap(this.player, 75);
+		game.world.wrap(this.player, 75);      //realoca o personagem do outro lado do mapa
 		game.world.wrap(this.cannon, 75);
 	}
 
-	animate () {
-
-	}
-
-	fire () {
+	fire () { //o personagem atira
 		if (game.time.now > nextFire && this.bullets.countDead() > 0){
 			let bullet = this.bullets.getFirstDead();
 			bullet.reset(
@@ -142,11 +136,11 @@ class Player {
 			
 			game.physics.arcade.moveToPointer(bullet, 1000);
 			
-			nextFire = game.time.now + fireRate;
+			nextFire = game.time.now + fireRate; //quarda a informação do tempo do tiro
 		}
 	}
 }
-
+//classe para o inimigo-------------
 class Enemy {
 	constructor (sprite) {
 		this.sprite = sprite
@@ -172,12 +166,12 @@ class Enemy {
 		this.healthBar.setPercent(this.sprite.health / this.sprite.maxHealth);
 	}
 }
-
+//-------------
 class Demon extends Enemy {
 	constructor () {
 		const sprite = game.add.image(80, 250, 'demonio'); //adiciona o demonio
-		sprite.maxHealth = 500;
-		sprite.health = sprite.maxHealth;
+		sprite.maxHealth = 500;  // do demonio
+		sprite.health = sprite.maxHealth;  //hp maximo
 		super(sprite);
 	}
 }
@@ -186,9 +180,9 @@ class Demon extends Enemy {
  * Lógica do jogo
  */
 
-const get_image = (name) => `public/img/${name}`;
+const get_image = (name) => `public/img/${name}`;  //retorna um link para imagem
 
-document.querySelector('body').style.cursor = 'crosshair';
+document.querySelector('body').style.cursor = 'crosshair';  
 
 // Variavel do framework reponsável por todo jogo
 var game = new Phaser.Game(
@@ -207,11 +201,11 @@ var game = new Phaser.Game(
 /**
  * Váriaveis globais
  */
-let player, // Jogador
+let player, // Jogador   
 	demon,
 	controls = {}, // Controles
 	fireRate = 100, // Velocidade de disparo
-	nextFire = 0; // ???
+	nextFire = 0; // ???  proximo tiro salva a informação (parar de atirar)
 
 // Pré carrega alguns recursos
 function preload() {
@@ -229,17 +223,17 @@ function create() {
 	game.physics.startSystem(Phaser.Physics.P2JS);
 
 	// Adiciona o cenário do jogo
-	this.add.image(0, 0, 'background');
+	this.add.image(0, 0, 'background');   
 
 	// Limita o tamanho do mundo - adiona as barreiras
-	game.world.setBounds(0, 70, 1920, 1040);
+	game.world.setBounds(0, 70, 1920, 1040); //barreira/limite
 	
 
 	// setTimeout(() => p.animations.stop(), 5000)
 
 	// player
-	player = new Player();
-	demon = new Demon();
+	player = new Player();  //variaveis de cada personagem
+	demon = new Demon(); //variaveis de cada personagem
 	console.log(player)
 
 	// demon.sprite.body.collides(
@@ -251,10 +245,10 @@ function create() {
 	// );
 	
 	// Controles
-	controls.up = game.input.keyboard.addKey(Phaser.Keyboard.W);
-	controls.left = game.input.keyboard.addKey(Phaser.Keyboard.A);
-	controls.down = game.input.keyboard.addKey(Phaser.Keyboard.S);
-	controls.right = game.input.keyboard.addKey(Phaser.Keyboard.D);
+	controls.up = game.input.keyboard.addKey(Phaser.Keyboard.W);    //fazer o personagem mexer
+	controls.left = game.input.keyboard.addKey(Phaser.Keyboard.A);   //fazer o personagem mexer
+	controls.down = game.input.keyboard.addKey(Phaser.Keyboard.S);  //fazer o personagem mexer
+	controls.right = game.input.keyboard.addKey(Phaser.Keyboard.D);  //fazer o personagem mexer
 
 	// Faz a câmera seguir o jogador
 	game.camera.follow(player.player);
@@ -267,6 +261,6 @@ function update() {
 
 // Função ??? - Debug
 function render() {
-	game.debug.cameraInfo(game.camera, 32, 32);
-	game.debug.spriteCoords(player.player, 32, 500);
+	game.debug.cameraInfo(game.camera, 32, 32);       //cordenadas
+	game.debug.spriteCoords(player.player, 32, 500);  //cordenadas do jogador
 }
