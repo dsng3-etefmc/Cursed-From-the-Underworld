@@ -74,9 +74,6 @@ class Player { //class pro jogador
 	}
 
 	update () {
-		// Atualiza Barra de vida
-		this.hpBar.setPosition(this.player.x, this.player.y - 100);
-
 		// Atualiza os canhões
 		this.cannon.x = this.player.x;
 		this.cannon.y = this.player.y;
@@ -107,6 +104,9 @@ class Player { //class pro jogador
 			which_animation = 'walkRight';
 			this.player.body.velocity.x = configuration.caracterSpeed;
 		}
+
+		// Atualiza Barra de vida
+		this.hpBar.setPosition(this.player.x, this.player.y - 100);
 
 		// Animation
 		if (did_player_moved) {
@@ -198,7 +198,11 @@ class Demon extends Enemy {
 	}
 
 	moveToPlayer (player) {
-		game.physics.arcade.moveToObject(this.sprite, player, 200);
+		if (game.physics.arcade.distanceBetween(this.sprite, player) > 10) {
+			game.physics.arcade.moveToObject(this.sprite, player, 200);
+		} else {
+			this.sprite.body.velocity.set(0);
+		}
 	}
 
 	update () {
@@ -231,7 +235,9 @@ var game = new Phaser.Game(
 /**
  * Váriaveis globais
  */
-let player, // Jogador   
+let player, // Jogador
+	demons,
+	demonsGroup,
 	demon,
 	controls = {}, // Controles
 	fireRate = 100, // Velocidade de disparo
@@ -261,8 +267,15 @@ function create() {
 
 	// player
 	player = new Player();  //variaveis de cada personagem
+
+	demons = [];
+	demonsGroup = game.add.group();
+	for (let i = 0; i < 10; i++) {
+		demons.push(new Demon());
+		game.add
+	}
+	console.log(demons)
 	demon = new Demon(); //variaveis de cada personagem
-	console.log(player)
 	
 	// Controles
 	controls.up = game.input.keyboard.addKey(Phaser.Keyboard.W);    //fazer o personagem mexer
@@ -272,10 +285,6 @@ function create() {
 
 	// Faz a câmera seguir o jogador
 	game.camera.follow(player.player);
-
-	console.log(demon.sprite) 
-	console.log(player.bullets)
-	console.log(game.physics.arcade.collide)
 }
 
 // Função que atualiza os elementos do jogo - rodada a cada frame
@@ -284,10 +293,13 @@ function update() {
 	demon.update();
 	demon.moveToPlayer(player.player);
 
-	let bulletAndDemonCollision = game.physics.arcade.collide(
+	let bulletAndDemonCollision = game.physics.arcade.overlap(
 		demon.sprite, 
 		player.bullets, 
-		() => demon.damage(10)
+		(demonSprite, bullet) => {
+			demon.damage(10);
+			bullet.kill();
+		}
 	);
 	
 	if (bulletAndDemonCollision) {
