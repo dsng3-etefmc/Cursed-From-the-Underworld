@@ -11,14 +11,14 @@ const configuration = {
 class Player { //class pro jogador
 	constructor () {
 		// player setup
-		this.player = game.add.sprite(
+		this.player = game.add.sprite(   //coloca o jogador no centro
 			game.world.centerX,
 			game.world.centerY, 
 			'player'
 		);
-		this.player.anchor.set(.5);
-		this.player.maxHealth = 100;
-		this.player.health = this.player.maxHealth;
+		this.player.anchor.set(.5); //visibilidade do jogador
+		this.player.maxHealth = 100;  //hp do jogador
+		this.player.health = this.player.maxHealth;  //diminui a vida do jogador
 		game.physics.enable(this.player);
 
 		// Animation
@@ -28,14 +28,14 @@ class Player { //class pro jogador
 		var walkLeft = this.player.animations.add('walkLeft', walkingAnimationsKeyframes(3));
 		var walkRight = this.player.animations.add('walkRight', walkingAnimationsKeyframes(4));
 		this.player.smoothed = false;
-    	this.player.scale.set(4);
+    	this.player.scale.set(4);  //tamanho do personagem
 
 		// HP bar - barra de vida
 		this.hpBar = new HealthBar(game, {
 			x: this.player.x, 
 			y: this.player.y - 100,
-			height: 20,
-			width: 100
+			height: 20,    //tamanho da barra
+			width: 100     //tamanho da barra
 		});
 
 		// cannon setup
@@ -185,14 +185,14 @@ class Demon extends Enemy {
 	constructor () {
 		const sprite = game.add.sprite(150, 250, 'demon'); //adiciona o demonio
 		game.physics.enable(sprite);
-		sprite.anchor.set(.5);
-		sprite.scale.set(.5);
+		sprite.anchor.set(.5);  //visibilidade do demonio
+		sprite.scale.set(.5); //tamanho de demonio
 
-		var walk = sprite.animations.add('walk', [0, 1, 2, 3]);
-		sprite.play('walk', 5, true);
+		var walk = sprite.animations.add('walk', [0, 1, 2, 3]);  //animação
+		sprite.play('walk', 5, true);   //animação 
 
 		sprite.maxHealth = 500;  // do demonio
-		sprite.health = sprite.maxHealth;  //hp maximo
+		sprite.health = sprite.maxHealth;  //diminui o hp do demonio
 
 		super(sprite);
 	}
