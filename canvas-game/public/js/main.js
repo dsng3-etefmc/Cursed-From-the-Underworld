@@ -1,4 +1,4 @@
-import { HealthBar } from './HealthBar.js';
+import { HealthBar } from './HealthBar.js';  //chamando o HealthBar.js pelo JavaScript
 
 // Configurações do jogo
 const configuration = {
@@ -11,14 +11,14 @@ const configuration = {
 class Player { //class pro jogador
 	constructor () {
 		// player setup
-		this.player = game.add.sprite(
+		this.player = game.add.sprite(   //coloca o jogador no centro
 			game.world.centerX,
 			game.world.centerY, 
 			'player'
 		);
-		this.player.anchor.set(.5);
-		this.player.maxHealth = 100;
-		this.player.health = this.player.maxHealth;
+		this.player.anchor.set(.5); //visibilidade do jogador
+		this.player.maxHealth = 100;  //hp do jogador
+		this.player.health = this.player.maxHealth;  //diminui a vida do jogador
 		game.physics.enable(this.player);
 
 		// Animation
@@ -35,15 +35,15 @@ class Player { //class pro jogador
 			);
 		}
 		this.player.smoothed = false;
-    	this.player.scale.set(4);
+    	this.player.scale.set(4); //tamanho do personagem
 		this.lastAnimation = null;
 
 		// HP bar - barra de vida
 		this.hpBar = new HealthBar(game, {
 			x: this.player.x, 
 			y: this.player.y - 100,
-			height: 20,
-			width: 100
+			height: 20,    //tamanho da barra
+			width: 100     //tamanho da barra
 		});
 
 		// cannon setup
@@ -93,7 +93,7 @@ class Player { //class pro jogador
 
 		this.player.body.velocity.set(0);
 
-		// Movimenta o personagem se wasd for pressionado
+		// Movimenta o personagem se W-A-S-D for pressionado
 		let which_animation = null;
 		if(controls.up.isDown){
 			which_animation = 'walkUp';
@@ -135,7 +135,7 @@ class Player { //class pro jogador
 		//permite a realocação de um sprite em relação ao mundo do jogo
 		//recebe como parâmetros: o sprite a ser realocado e uma margem em pixels 
 		game.world.wrap(this.player, 75);      //realoca o personagem do outro lado do mapa
-		game.world.wrap(this.cannon, 75);
+		game.world.wrap(this.cannon, 75);      //realoca o personagem do outro lado do mapa
 	}
 
 	fire () { //o personagem atira
@@ -197,14 +197,14 @@ class Demon extends Enemy {
 	constructor () {
 		const sprite = game.add.sprite(150, 250, 'demon'); //adiciona o demonio
 		game.physics.enable(sprite);
-		sprite.anchor.set(.5);
-		sprite.scale.set(.5);
+		sprite.anchor.set(.5);  //visibilidade do demonio
+		sprite.scale.set(.5); //tamanho de demonio
 
-		var walk = sprite.animations.add('walk', [0, 1, 2, 3]);
-		sprite.play('walk', 5, true);
+		var walk = sprite.animations.add('walk', [0, 1, 2, 3]);  //animação
+		sprite.play('walk', 5, true);   //animação 
 
 		sprite.maxHealth = 500;  // do demonio
-		sprite.health = sprite.maxHealth;  //hp maximo
+		sprite.health = sprite.maxHealth;  //diminui o hp do demonio
 
 		super(sprite);
 	}
@@ -264,6 +264,7 @@ function preload() {
 	game.load.image('background', get_image('2testando.png'));
 	game.load.spritesheet('demon', get_image('demon_spritesheet.png'), 180, 180, 36);
 	game.load.spritesheet('player', get_image('player.png'), 24, 32, 36);
+	game.load.audio('audio', 'public/music/BatalhaFinal.mp3');
 }
 
 // Função que cria os elementos do jogo
@@ -275,7 +276,13 @@ function create() {
 	this.add.image(0, 0, 'background');   
 
 	// Limita o tamanho do mundo - adiona as barreiras
-	game.world.setBounds(0, 70, 1920, 1040); //barreira/limite
+	game.world.setBounds(0, 70, 1920, 1040); //barreira/limite<<<<<<< HEAD
+
+	
+	
+
+	// setTimeout(() => p.animations.stop(), 5000)
+
 
 	// player
 	player = new Player();  //variaveis de cada personagem
