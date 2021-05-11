@@ -1,4 +1,4 @@
-var HealthBar = function(game, providedConfig) {
+export const HealthBar = function(game, providedConfig) {
     this.game = game;
     this.group = null;
 
