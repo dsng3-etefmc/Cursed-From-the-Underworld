@@ -245,14 +245,10 @@ let player, // Jogador
 
 // Pré carrega alguns recursos
 function preload() {
-	game.load.image('tank', get_image('teste2.png'));
-	game.load.image('cannon', get_image('ivisivel.png'));
 	game.load.image('bullet', get_image('bullet.png'));
-	game.load.image('demonio', get_image('demonio.png'));
-	game.load.image('background', get_image('2testando.png'));
+	game.load.image('background', get_image('background.png'));
 	game.load.spritesheet('demon', get_image('demon_spritesheet.png'), 180, 180, 36);
-	game.load.spritesheet('player', get_image('player.png'), 24, 32, 36);
-	game.load.audio('audio', 'public/music/BatalhaFinal.mp3');
+	game.load.spritesheet('player', get_image('player_spritesheet.png'), 24, 32, 36);
 }
 
 // Função que cria os elementos do jogo
