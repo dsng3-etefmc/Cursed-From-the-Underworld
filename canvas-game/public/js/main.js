@@ -23,13 +23,21 @@ class Player { //class pro jogador
 		game.physics.enable(this.player);
 
 		// Animation
-		const walkingAnimationsKeyframes = (s) => [0, 1, 2, 3, 4, 5, 6, 7].map(n => n + 9 * (s - 1)) //frames da animação
-		var walkUp = this.player.animations.add('walkUp', walkingAnimationsKeyframes(2));
-		var walkDown = this.player.animations.add('walkDown', walkingAnimationsKeyframes(1));
-		var walkLeft = this.player.animations.add('walkLeft', walkingAnimationsKeyframes(3));
-		var walkRight = this.player.animations.add('walkRight', walkingAnimationsKeyframes(4));
+		this.playerAnimations = {
+			walkUp: 2,
+			walkDown: 1,
+			walkLeft: 3,
+			walkRight: 4
+		}
+		for (let animation in this.playerAnimations) {
+			this.player.animations.add(
+				animation, 
+				this._walkingAnimationsKeyframes(this.playerAnimations[animation])
+			);
+		}
 		this.player.smoothed = false;
-    	this.player.scale.set(4);  //tamanho do personagem
+    	this.player.scale.set(4); //tamanho do personagem
+		this.lastAnimation = null;
 
 		// HP bar - barra de vida
 		this.hpBar = new HealthBar(game, {
@@ -38,15 +46,6 @@ class Player { //class pro jogador
 			height: 20,    //tamanho da barra
 			width: 100     //tamanho da barra
 		});
-
-		// cannon setup
-		this.cannon = game.add.sprite(
-			this.player.x,
-			this.player.y,
-			'cannon'
-		);
-		this.cannon.anchor.set(.3,.5);
-		game.physics.enable(this.cannon);
 		
 		//tiros
 		this.bullets = game.add.physicsGroup();
@@ -56,6 +55,10 @@ class Player { //class pro jogador
 		this.bullets.setAll('outOfBoundsKill',true);
 		this.bullets.setAll('anchor.x',.5);
 		this.bullets.setAll('anchor.y',.5);
+	}
+
+	_walkingAnimationsKeyframes (s) {
+		return [0, 1, 2, 3, 4, 5, 6, 7].map(n => n + 9 * (s - 1)) //frames da animação
 	}
 
 	//cura a vida do personagem
@@ -71,37 +74,32 @@ class Player { //class pro jogador
 	}
 
 	_updateHealthBar () {
+<<<<<<< HEAD
 		this.hpBar.setPercent(100 * this.player.health / this.player.maxHealth)  //cura o personagem
+=======
+		if (this.player.health <= 0) this.hpBar.kill();
+		this.hpBar.setPercent(100 * this.player.health / this.player.maxHealth)
+>>>>>>> 26930d2b6d0dfe1cc9500b0b9dde53c7125cfbde
 	}
 
 	update () {
-		// Atualiza os canhões
-		this.cannon.x = this.player.x;
-		this.cannon.y = this.player.y;
-		this.cannon.rotation = game.physics.arcade.angleToPointer(this.cannon);
-
 		this.player.body.velocity.set(0);
 
 		// Movimenta o personagem se W-A-S-D for pressionado
-		let did_player_moved = false;
-		let which_animation = '';
+		let which_animation = null;
 		if(controls.up.isDown){
-			did_player_moved = true;
 			which_animation = 'walkUp';
 			this.player.body.velocity.y = -configuration.caracterSpeed;
 		} 
 		if (controls.down.isDown) {
-			did_player_moved = true;
 			which_animation = 'walkDown';
 			this.player.body.velocity.y = configuration.caracterSpeed;
 		}
 		if (controls.left.isDown) {
-			did_player_moved = true;
 			which_animation = 'walkLeft';
 			this.player.body.velocity.x = -configuration.caracterSpeed;
 		}
 		if (controls.right.isDown) {
-			did_player_moved = true;
 			which_animation = 'walkRight';
 			this.player.body.velocity.x = configuration.caracterSpeed;
 		}
@@ -111,11 +109,16 @@ class Player { //class pro jogador
 
 		//segunda pessoa---------------------------------
 		// Animation
-		if (did_player_moved) {
+		if (which_animation !== null) {
 			this.player.play(which_animation, 15, true);
 		} else {
+			let keyframe = this._walkingAnimationsKeyframes(
+				this.playerAnimations[this.lastAnimation]
+			)[0];
 			this.player.animations.stop();
+			this.player.animations.frame = keyframe;
 		}
+		this.lastAnimation = which_animation;
 
 		// Atira se botão click ativado
 		if(game.input.activePointer.isDown){
@@ -125,15 +128,17 @@ class Player { //class pro jogador
 		//permite a realocação de um sprite em relação ao mundo do jogo
 		//recebe como parâmetros: o sprite a ser realocado e uma margem em pixels 
 		game.world.wrap(this.player, 75);      //realoca o personagem do outro lado do mapa
-		game.world.wrap(this.cannon, 75);      //realoca o personagem do outro lado do mapa
 	}
 
 	fire () { //o personagem atira
 		if (game.time.now > nextFire && this.bullets.countDead() > 0){
+
 			let bullet = this.bullets.getFirstDead();
+			let angle = game.physics.arcade.angleToPointer(this.player);
+			let radius = 30
 			bullet.reset(
-				this.cannon.x + Math.cos(this.cannon.rotation) * 80,
-				this.cannon.y + Math.sin(this.cannon.rotation) * 80
+				this.player.x + Math.cos(angle) * radius,
+				this.player.y + Math.sin(angle) * radius
 			);
 			
 			game.physics.arcade.moveToPointer(bullet, 1000);
@@ -179,6 +184,7 @@ class Enemy {
 	}
 
 	_updateHealthBar () {
+		if (this.sprite.health <= 0) this.healthBar.kill();
 		this.healthBar.setPercent(100 * this.sprite.health / this.sprite.maxHealth);
 	}
 }
@@ -249,14 +255,10 @@ let player, // Jogador
 
 // Pré carrega alguns recursos
 function preload() {
-	game.load.image('tank', get_image('teste2.png'));
-	game.load.image('cannon', get_image('ivisivel.png'));
 	game.load.image('bullet', get_image('bullet.png'));
-	game.load.image('demonio', get_image('demonio.png'));
-	game.load.image('background', get_image('2testando.png'));
+	game.load.image('background', get_image('background.png'));
 	game.load.spritesheet('demon', get_image('demon_spritesheet.png'), 180, 180, 36);
-	game.load.spritesheet('player', get_image('player.png'), 24, 32, 36);
-	game.load.audio('audio', 'public/music/BatalhaFinal.mp3');
+	game.load.spritesheet('player', get_image('player_spritesheet.png'), 24, 32, 36);
 }
 
 // Função que cria os elementos do jogo
@@ -274,14 +276,6 @@ function create() {
 
 	// player
 	player = new Player();  //variaveis de cada personagem
-
-	demons = [];
-	demonsGroup = game.add.group();
-	for (let i = 0; i < 10; i++) {
-		demons.push(new Demon());
-		game.add
-	}
-	console.log(demons)
 	demon = new Demon(); //variaveis de cada personagem
 	
 	// Controles
@@ -308,22 +302,14 @@ function update() {
 			bullet.kill();
 		}
 	);
-	
-	if (bulletAndDemonCollision) {
-        console.log('boom');
-    }
 
 	let playerAndDemonCollision = game.physics.arcade.overlap(
 		player.player, 
 		demon.sprite, 
-		() => console.log('boom'), 
-		null, 
-		this
+		() => {
+			demon.hit(player);
+		}
 	);
-	
-	if (playerAndDemonCollision) {
-		demon.hit(player);
-	}
 }
 
 // Função ??? - Debug
