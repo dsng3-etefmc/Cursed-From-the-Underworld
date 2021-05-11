@@ -6,3 +6,18 @@ Breve Histotia: Um explorador toca em um objeto amaldiçoado que liga sua alma a
 Caracteristicas: 
 2D;
 3° pessoa;
+
+# Como instalar o jogo feito por canvas
+
+1. Clone o repositório
+```bash
+$ git clone https://github.com/dsng3-etefmc/jogo
+```
+2. Instale as dependências do projeto
+```bash
+$ npm install
+```
+3. Inicie o servidor
+```
+$ npm run start
+```
