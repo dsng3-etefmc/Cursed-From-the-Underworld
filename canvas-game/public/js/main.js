@@ -45,15 +45,6 @@ class Player { //class pro jogador
 			height: 20,    //tamanho da barra
 			width: 100     //tamanho da barra
 		});
-
-		// cannon setup
-		this.cannon = game.add.sprite(
-			this.player.x,
-			this.player.y,
-			'cannon'
-		);
-		this.cannon.anchor.set(.3,.5);
-		game.physics.enable(this.cannon);
 		
 		//tiros
 		this.bullets = game.add.physicsGroup();
@@ -86,11 +77,6 @@ class Player { //class pro jogador
 	}
 
 	update () {
-		// Atualiza os canhões
-		this.cannon.x = this.player.x;
-		this.cannon.y = this.player.y;
-		this.cannon.rotation = game.physics.arcade.angleToPointer(this.cannon);
-
 		this.player.body.velocity.set(0);
 
 		// Movimenta o personagem se W-A-S-D for pressionado
@@ -135,15 +121,17 @@ class Player { //class pro jogador
 		//permite a realocação de um sprite em relação ao mundo do jogo
 		//recebe como parâmetros: o sprite a ser realocado e uma margem em pixels 
 		game.world.wrap(this.player, 75);      //realoca o personagem do outro lado do mapa
-		game.world.wrap(this.cannon, 75);      //realoca o personagem do outro lado do mapa
 	}
 
 	fire () { //o personagem atira
 		if (game.time.now > nextFire && this.bullets.countDead() > 0){
+
 			let bullet = this.bullets.getFirstDead();
+			let angle = game.physics.arcade.angleToPointer(this.player);
+			let radius = 30
 			bullet.reset(
-				this.cannon.x + Math.cos(this.cannon.rotation) * 80,
-				this.cannon.y + Math.sin(this.cannon.rotation) * 80
+				this.player.x + Math.cos(angle) * radius,
+				this.player.y + Math.sin(angle) * radius
 			);
 			
 			game.physics.arcade.moveToPointer(bullet, 1000);
