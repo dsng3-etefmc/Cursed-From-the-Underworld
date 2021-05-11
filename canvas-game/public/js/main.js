@@ -73,6 +73,7 @@ class Player { //class pro jogador
 	}
 
 	_updateHealthBar () {
+		if (this.player.health <= 0) this.hpBar.kill();
 		this.hpBar.setPercent(100 * this.player.health / this.player.maxHealth)
 	}
 
@@ -177,6 +178,7 @@ class Enemy {
 	}
 
 	_updateHealthBar () {
+		if (this.sprite.health <= 0) this.healthBar.kill();
 		this.healthBar.setPercent(100 * this.sprite.health / this.sprite.maxHealth);
 	}
 }
@@ -261,9 +263,6 @@ function create() {
 
 	// Limita o tamanho do mundo - adiona as barreiras
 	game.world.setBounds(0, 70, 1920, 1040); //barreira/limite<<<<<<< HEAD
-
-	
-	
 
 	// setTimeout(() => p.animations.stop(), 5000)
 
