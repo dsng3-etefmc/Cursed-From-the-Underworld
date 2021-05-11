@@ -271,15 +271,6 @@ function create() {
 	// player
 	player = new Player();  //variaveis de cada personagem
 	demon = new Demon(); //variaveis de cada personagem
-
-	// Implementação de multiplo demonios - descontinuada
-	// demons = [];
-	// demonsGroup = game.add.group();
-	// for (let i = 0; i < 10; i++) {
-	// 	demons.push(new Demon());
-	// 	game.add
-	// }
-	// console.log(demons)
 	
 	// Controles
 	controls.up = game.input.keyboard.addKey(Phaser.Keyboard.W);    //fazer o personagem mexer
@@ -305,22 +296,14 @@ function update() {
 			bullet.kill();
 		}
 	);
-	
-	if (bulletAndDemonCollision) {
-        console.log('boom');
-    }
 
 	let playerAndDemonCollision = game.physics.arcade.overlap(
 		player.player, 
 		demon.sprite, 
-		() => console.log('boom'), 
-		null, 
-		this
+		() => {
+			demon.hit(player);
+		}
 	);
-	
-	if (playerAndDemonCollision) {
-		demon.hit(player);
-	}
 }
 
 // Função ??? - Debug
