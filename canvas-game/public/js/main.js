@@ -1,3 +1,4 @@
+//primeira pessoa
 import { HealthBar } from './HealthBar.js';  //chamando o HealthBar.js pelo JavaScript
 
 // Configurações do jogo
@@ -11,7 +12,7 @@ const configuration = {
 class Player { //class pro jogador
 	constructor () {
 		// player setup
-		this.player = game.add.sprite(   //coloca o jogador no centro
+		this.player = game.add.sprite(   //coloca o jogador no jogo/centro
 			game.world.centerX,
 			game.world.centerY, 
 			'player'
@@ -73,8 +74,12 @@ class Player { //class pro jogador
 	}
 
 	_updateHealthBar () {
+<<<<<<< HEAD
+		this.hpBar.setPercent(100 * this.player.health / this.player.maxHealth)  //cura o personagem
+=======
 		if (this.player.health <= 0) this.hpBar.kill();
 		this.hpBar.setPercent(100 * this.player.health / this.player.maxHealth)
+>>>>>>> 26930d2b6d0dfe1cc9500b0b9dde53c7125cfbde
 	}
 
 	update () {
@@ -102,6 +107,7 @@ class Player { //class pro jogador
 		// Atualiza Barra de vida
 		this.hpBar.setPosition(this.player.x, this.player.y - 100);
 
+		//segunda pessoa---------------------------------
 		// Animation
 		if (which_animation !== null) {
 			this.player.play(which_animation, 15, true);
@@ -220,6 +226,8 @@ const get_image = (name) => `public/img/${name}`;  //retorna um link para imagem
 
 document.querySelector('body').style.cursor = 'crosshair';  
 
+
+//terceira pessoa------------------------------------------------
 // Variavel do framework reponsável por todo jogo
 var game = new Phaser.Game(
 	800,
@@ -265,7 +273,6 @@ function create() {
 	game.world.setBounds(0, 70, 1920, 1040); //barreira/limite<<<<<<< HEAD
 
 	// setTimeout(() => p.animations.stop(), 5000)
-
 
 	// player
 	player = new Player();  //variaveis de cada personagem
