@@ -22,13 +22,21 @@ class Player { //class pro jogador
 		game.physics.enable(this.player);
 
 		// Animation
-		const walkingAnimationsKeyframes = (s) => [0, 1, 2, 3, 4, 5, 6, 7].map(n => n + 9 * (s - 1)) //frames da animação
-		var walkUp = this.player.animations.add('walkUp', walkingAnimationsKeyframes(2));
-		var walkDown = this.player.animations.add('walkDown', walkingAnimationsKeyframes(1));
-		var walkLeft = this.player.animations.add('walkLeft', walkingAnimationsKeyframes(3));
-		var walkRight = this.player.animations.add('walkRight', walkingAnimationsKeyframes(4));
+		this.playerAnimations = {
+			walkUp: 2,
+			walkDown: 1,
+			walkLeft: 3,
+			walkRight: 4
+		}
+		for (let animation in this.playerAnimations) {
+			this.player.animations.add(
+				animation, 
+				this._walkingAnimationsKeyframes(this.playerAnimations[animation])
+			);
+		}
 		this.player.smoothed = false;
     	this.player.scale.set(4);
+		this.lastAnimation = null;
 
 		// HP bar - barra de vida
 		this.hpBar = new HealthBar(game, {
@@ -57,6 +65,10 @@ class Player { //class pro jogador
 		this.bullets.setAll('anchor.y',.5);
 	}
 
+	_walkingAnimationsKeyframes (s) {
+		return [0, 1, 2, 3, 4, 5, 6, 7].map(n => n + 9 * (s - 1)) //frames da animação
+	}
+
 	//cura a vida do personagem
 	heal (val) {
 		this.player.heal(val);
@@ -82,25 +94,20 @@ class Player { //class pro jogador
 		this.player.body.velocity.set(0);
 
 		// Movimenta o personagem se wasd for pressionado
-		let did_player_moved = false;
-		let which_animation = '';
+		let which_animation = null;
 		if(controls.up.isDown){
-			did_player_moved = true;
 			which_animation = 'walkUp';
 			this.player.body.velocity.y = -configuration.caracterSpeed;
 		} 
 		if (controls.down.isDown) {
-			did_player_moved = true;
 			which_animation = 'walkDown';
 			this.player.body.velocity.y = configuration.caracterSpeed;
 		}
 		if (controls.left.isDown) {
-			did_player_moved = true;
 			which_animation = 'walkLeft';
 			this.player.body.velocity.x = -configuration.caracterSpeed;
 		}
 		if (controls.right.isDown) {
-			did_player_moved = true;
 			which_animation = 'walkRight';
 			this.player.body.velocity.x = configuration.caracterSpeed;
 		}
@@ -109,11 +116,16 @@ class Player { //class pro jogador
 		this.hpBar.setPosition(this.player.x, this.player.y - 100);
 
 		// Animation
-		if (did_player_moved) {
+		if (which_animation !== null) {
 			this.player.play(which_animation, 15, true);
 		} else {
+			let keyframe = this._walkingAnimationsKeyframes(
+				this.playerAnimations[this.lastAnimation]
+			)[0];
 			this.player.animations.stop();
+			this.player.animations.frame = keyframe;
 		}
+		this.lastAnimation = which_animation;
 
 		// Atira se botão click ativado
 		if(game.input.activePointer.isDown){
@@ -267,15 +279,16 @@ function create() {
 
 	// player
 	player = new Player();  //variaveis de cada personagem
-
-	demons = [];
-	demonsGroup = game.add.group();
-	for (let i = 0; i < 10; i++) {
-		demons.push(new Demon());
-		game.add
-	}
-	console.log(demons)
 	demon = new Demon(); //variaveis de cada personagem
+
+	// Implementação de multiplo demonios - descontinuada
+	// demons = [];
+	// demonsGroup = game.add.group();
+	// for (let i = 0; i < 10; i++) {
+	// 	demons.push(new Demon());
+	// 	game.add
+	// }
+	// console.log(demons)
 	
 	// Controles
 	controls.up = game.input.keyboard.addKey(Phaser.Keyboard.W);    //fazer o personagem mexer
