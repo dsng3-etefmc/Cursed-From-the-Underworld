@@ -70,16 +70,13 @@ class Player { //class pro jogador
 	//abaixa a vida do personagem (principal)
 	damage (val) {
 		this.player.damage(val);
-		this._updateHealthBar();
+		this._updateHealthBar(); //soome a vida do personagem
 	}
 
 	_updateHealthBar () {
-<<<<<<< HEAD
-		this.hpBar.setPercent(100 * this.player.health / this.player.maxHealth)  //cura o personagem
-=======
 		if (this.player.health <= 0) this.hpBar.kill();
-		this.hpBar.setPercent(100 * this.player.health / this.player.maxHealth)
->>>>>>> 26930d2b6d0dfe1cc9500b0b9dde53c7125cfbde
+		this.hpBar.setPercent(100 * this.player.health / this.player.maxHealth) //cura o personagem
+
 	}
 
 	update () {
@@ -147,6 +144,7 @@ class Player { //class pro jogador
 		}
 	}
 }
+//--------------------------
 //classe para o inimigo-------------
 class Enemy {
 	constructor (sprite, hitDelay = 1000) {
