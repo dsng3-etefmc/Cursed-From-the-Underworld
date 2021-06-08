@@ -1,3 +1,12 @@
+# Integrantes do grupo
+
+* Trilha e gravações: Nydia Jodar Teles dos Santos
+* Roteiro e Universo: Giovana Franciele Gonçalves Leite 
+* Continuidade e documentação: Marcus Vinicius Ferreira Oliveira
+* Design Gráfica: Gabriel Feliciano Pontes Morais
+* Programação: Antonio Alexandre Barbosa da Silva
+* Design e criação: Danilo Ribeiro Gaspar
+
 # jogo: The Redemption of the Bastard
 
 ## Description
