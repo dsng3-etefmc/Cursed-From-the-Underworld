@@ -9,7 +9,7 @@ Breve Histotia: Um explorador toca em um objeto amaldiçoado que liga sua alma a
 * Visão 2D - Top-Down
 * 3° pessoa
 
-# Integrantes do grupo
+## Integrantes do time
 
 * Trilha e gravações: Nydia Jodar Teles dos Santos
 * Roteiro e Universo: Giovana Franciele Gonçalves Leite 
