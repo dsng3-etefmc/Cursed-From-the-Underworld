@@ -18,7 +18,7 @@ Breve Histotia: Um explorador toca em um objeto amaldiçoado que liga sua alma a
 * Programação: Antonio Alexandre Barbosa da Silva
 * Design e criação: Danilo Ribeiro Gaspar
 
-# Como instalar o jogo feito por canvas
+# Como instalar o jogo (Versão Canvas)
 
 1. Clone o repositório
 ```bash
